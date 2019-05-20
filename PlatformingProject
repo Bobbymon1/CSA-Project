@@ -1,0 +1,112 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
+/**
+ * Controls movement and damage of the player-controlled character
+ * 
+ * @Sean Shimohara
+ * @5/19
+ */
+public class Character extends Actor
+{
+    //The base fall speed of the character
+    private final int GRAVITY= 1;
+    
+    //The base movement speed of the character
+    private final int BASESPEED = 3;
+    
+    //Tracks how much faster the character will fall w/ relation to time
+    private int gravityAcceleration = 0;
+    
+    //Tracks how much faster character will move w/ relation to time
+    private double movementAcceleration = 0.01;
+    
+    //Puts a cap on how high the character will jump (resets on landing)
+    private int jumpCounter = 2;
+    
+    //Keeps track of character's lives
+    private int lives = 3;
+    
+    public void act() {
+        if(!isTouching(null)) {
+            fall();
+        }
+        else {
+            gravityAcceleration = 0;
+            jumpCounter = 2;
+        }
+        movement();
+        jump();
+        if(!Greenfoot.isKeyDown("left") && !Greenfoot.isKeyDown("right")) {
+            movementAcceleration = 0;
+        }
+    }
+    public void fall() {
+        setLocation(getX(), getY() + GRAVITY + gravityAcceleration);
+        gravityAcceleration += 1;
+    }
+    
+    //Controls left and right movement of character, as well as sprinting
+    public void movement() {
+        if(!isTouching(KillBox.class)) {
+            if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a")) {
+                setLocation(getX() - BASESPEED - (int)(movementAcceleration), getY());
+                movementAcceleration += .01;
+            }
+            if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d")) {
+                setLocation(getX() + BASESPEED + (int)(movementAcceleration), getY());
+                movementAcceleration += .01;
+            }
+            if(Greenfoot.isKeyDown("shift")) {
+                movementAcceleration += .1;
+            }
+        }
+    }
+    
+    //Controls upward vertical movement of character
+    public void jump() {
+        if(!isTouching(KillBox.class)) {
+            if(jumpCounter > 0 && (Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("space") || Greenfoot.isKeyDown("w"))) {
+                setLocation(getX(), getY() - 20);
+                gravityAcceleration -= 10;
+                jumpCounter--;
+            }
+        }
+    }
+    
+    //Decreases lives and resets character spawn location when touching a KillBox
+    public void death() {
+        if(isTouching(KillBox.class)) {
+            if(lives > 0) {
+               lives--;
+               setLocation(55, 505);
+            }
+        }
+    }
+    
+    //Returns the remaining number of lives
+    public int getLives() {
+        return lives;
+    }
+} 
+
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+
+/**
+ * Write a description of class LevelTwo here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class Gameover extends World
+{
+
+    /**
+     * Constructor for objects of class LevelTwo.
+     * 
+     */
+    public Gameover()
+    {    
+        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+        super(600, 400, 1); 
+    }
+}
