@@ -89,24 +89,69 @@ public class Character extends Actor
     }
 } 
 
+//Main World
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class LevelTwo here.
+ * Write a description of class MyWorld here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Gameover extends World
+public class LevelOne extends World
 {
 
     /**
-     * Constructor for objects of class LevelTwo.
+     * Constructor for objects of class MyWorld.
      * 
      */
-    public Gameover()
+    public LevelOne()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(1350, 700, 1); 
+        Character character = new Character();
+        addObject(character,55,505);
+        prepare();
+    }
+
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
+        Obstacle obstacle = new Obstacle();
+        addObject(obstacle,53,653);
+        Obstacle obstacle2 = new Obstacle();
+        addObject(obstacle2,157,654);
+        Obstacle obstacle4 = new Obstacle();
+        addObject(obstacle4,548,654);
+        Obstacle obstacle6 = new Obstacle();
+        addObject(obstacle6,1049,653);
+        Obstacle obstacle7 = new Obstacle();
+        addObject(obstacle7,1154,652);
+        Obstacle obstacle8 = new Obstacle();
+        addObject(obstacle8,1299,653);
+        Obstacle obstacle9 = new Obstacle();
+        addObject(obstacle9,1241,652);
+        Obstacle obstacle10 = new Obstacle();
+        addObject(obstacle10,841,652);
+        KillBox killBox = new KillBox();
+        addObject(killBox,458,680);
+        KillBox killBox2 = new KillBox();
+        addObject(killBox2,662,680);
+        obstacle10.setLocation(789,680);
+        KillBox killBox3 = new KillBox();
+        addObject(killBox3,789,680);
+        KillBox killBox4 = new KillBox();
+        addObject(killBox4,273,680);
+        Obstacle obstacle12 = new Obstacle();
+        addObject(obstacle12,946,654);
+        obstacle9.setLocation(905,653);
+        Obstacle obstacle13 = new Obstacle();
+        addObject(obstacle13,905,653);
+        Obstacle obstacle14 = new Obstacle();
+        addObject(obstacle14,367,655);
+        Obstacle obstacle15 = new Obstacle();
+        addObject(obstacle15, 1200, 653);
     }
 }
